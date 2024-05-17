@@ -16,7 +16,10 @@ pipeline{
 
     stage('scan code with sonar scanner'){
         steps{
-            sh 'mvn verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar -Dsonar.projectKey=Marionngwa_geolocation'
+            withSonarQubeEnv('sonarqube'){
+                sh 'mvn verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar -Dsonar.projectKey=Marionngwa_geolocation'
+            }
+            
         }
     }
     stage('upload artifact to artifactory'){
