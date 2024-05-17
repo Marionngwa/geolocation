@@ -13,6 +13,12 @@ pipeline{
         }
         
     }
+
+    stage('scan code with sonar scanner'){
+        steps{
+            sh 'mvn verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar -Dsonar.projectKey=Marionngwa_geolocation'
+        }
+    }
     stage('upload artifact to artifactory'){
         steps{
             sh 'curl -uadmin:AP6APkHxetchhfhHqpaawMctMhu -T\
@@ -20,7 +26,5 @@ pipeline{
               "http://100.26.159.134:8081/artifactory/geolocation/geolocation/bio_${BUILD_ID}.jar"'
         }
     }
-
-
 }
 }
